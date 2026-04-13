@@ -3738,8 +3738,8 @@ function CheckItemBPCRBPCR(v463)
 end
 local vu32 = loadstring(game:HttpGet("https://raw.githubusercontent.com/PlockScripts/Library-ui/refs/heads/main/redz-V5-remake/main.luau"))()
 local v466 = vu32:MakeWindow({
-    Title = "Khô Gà Hub",
-    SubTitle = "NGƯỜI ĐÂU THƯỞNG KHÔ GÀ",
+    Title = "Kho Ga Hub",
+    SubTitle = "Blox Fruit",
     SaveFolder = "Redz | redz lib v5.lua"
 })
 
@@ -3762,8 +3762,8 @@ local v494 = v466:MakeTab({"Visual", "user"})
 local v495 = v466:MakeTab({"Shop", "shoppingCart"})
 local v496 = v466:MakeTab({"Misc", "settings"})
 v484:AddDiscordInvite({
-    Name = "Làm j có dis",
-    Description = "Làm j có dis",
+    Name = "ko co dis",
+    Description = "ko co dis",
     Logo = "rbxassetid://88912613217007",
     Invite = "https://discord.gg"
 })
@@ -6634,7 +6634,7 @@ if World3 then
                                     if not l_Character_7:FindFirstChild("Tushita") and not l_Backpack_1:FindFirstChild("Tushita") then
                                         if not v798 then
                                             game.StarterGui:SetCore("SendNotification", {
-                                                Title = "Khô Gà Hub",
+                                                Title = "Kho Ga Hub",
                                                 Text = "Use! - Yama or Tushita",
                                                 con = "rbxassetid://131185267344742",
                                                 Duration = 10
