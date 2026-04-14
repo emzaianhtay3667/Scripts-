@@ -1,0 +1,105 @@
+-- hanhh FULL SCRIPT (merged)
+
+--// SETTINGS
+getgenv().Settings = getgenv().Settings or {}
+
+--// LOAD UI
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wall%20v3"))()
+local Window = Library:CreateWindow("hanhh")
+
+--// TAB
+local MainTab = Window:CreateFolder("Main")
+local FarmTab = Window:CreateFolder("Auto Farm")
+
+--// SERVICES
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local VirtualUser = game:GetService("VirtualUser")
+
+local Plr = Players.LocalPlayer
+
+--// JOIN TEAM
+local function JoinTeam()
+    local targetTeam = getgenv().Settings.JoinTeam or "Pirates"
+
+    if not Plr.Team or (Plr.Team.Name ~= "Marines" and Plr.Team.Name ~= "Pirates") then
+        pcall(function()
+            ReplicatedStorage.Remotes.CommF_:InvokeServer("SetTeam", targetTeam)
+        end)
+    end
+end
+
+--// UI BUTTON
+MainTab:Button("Join Pirates", function()
+    getgenv().Settings.JoinTeam = "Pirates"
+    JoinTeam()
+end)
+
+MainTab:Button("Join Marines", function()
+    getgenv().Settings.JoinTeam = "Marines"
+    JoinTeam()
+end)
+
+--// GLOBAL
+getgenv().AutoFarm = false
+getgenv().AutoBoss = false
+getgenv().AutoChest = false
+
+--// UI TOGGLES
+FarmTab:Toggle("Auto Farm", function(v)
+    getgenv().AutoFarm = v
+end)
+
+FarmTab:Toggle("Auto Boss", function(v)
+    getgenv().AutoBoss = v
+end)
+
+FarmTab:Toggle("Auto Chest", function(v)
+    getgenv().AutoChest = v
+end)
+
+--// LOOP
+task.spawn(function()
+    while task.wait() do
+        pcall(function()
+
+            if getgenv().AutoFarm then
+                for _,v in pairs(workspace.Enemies:GetChildren()) do
+                    if v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 then
+                        Plr.Character.HumanoidRootPart.CFrame =
+                            v.HumanoidRootPart.CFrame * CFrame.new(0,0,3)
+
+                        VirtualUser:CaptureController()
+                        VirtualUser:ClickButton1(Vector2.new(0,0))
+                    end
+                end
+            end
+
+            if getgenv().AutoBoss then
+                for _,v in pairs(workspace.Enemies:GetChildren()) do
+                    if string.find(v.Name,"Boss") then
+                        Plr.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+                    end
+                end
+            end
+
+            if getgenv().AutoChest then
+                for _,v in pairs(workspace:GetDescendants()) do
+                    if v.Name == "Chest" then
+                        Plr.Character.HumanoidRootPart.CFrame = v.CFrame
+                    end
+                end
+            end
+
+        end)
+    end
+end)
+
+--// WORLD CHECK
+if game.PlaceId == 2753915549 then
+    World1 = true
+elseif game.PlaceId == 4442272183 then
+    World2 = true
+elseif game.PlaceId == 7449423635 then
+    World3 = true
+end
